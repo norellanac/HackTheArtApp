@@ -26,6 +26,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import { setI18nConfig, translate } from './src/helpers/i18n';
 import * as RNLocalize from 'react-native-localize';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { RootNavigator } from './src/routes/RootNavigator';
+import { NativeBaseProvider } from 'native-base';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -51,23 +54,9 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text>hey - {translate('commons.begin')} - hey</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NativeBaseProvider>
+      <RootNavigator />
+    </NativeBaseProvider>
   );
 }
 
